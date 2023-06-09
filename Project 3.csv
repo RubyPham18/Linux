@@ -1,47 +1,35 @@
-cd ~/Desktop/Project3
-
-wget "https://raw.githubusercontent.com/yinghaoz1/tmdb-movie-dataset-analysis/master/tmdb-movies.csv"
-
-csvgrep -n tmdb-movies.csv
-
-
-# Question 1: Descending order data by release_date 
-
-csvsort -c release_date -r tmdb-movies.csv | csvformat -T > sorted_movies.csv
-
-# Question 2: Filter the films having vote_average > 7.5 
-csvsql --query 'SELECT * FROM "tmdb-movies" where vote_average > 7.5' --snifflimit 0 tmdb-movies.csv | csvformat -T > vote_average > 7.5.csv
-
-# Question 3: Find the film max sales and min sales
-csvstat --min -c revenue tmdb-movies.csv
-
-csvstat --max -c revenue tmdb-movies.csv 
-
-# Question 4: Total sales
-awk -F',' 'BEGIN {total = 0} NR>1 {total+=$5} END {print "Total revenue: "total}' tmdb-movies.csv
-
-
-# Question 5: Top 10 have the highest sales
-
-csvsql --query 'SELECT id,SUM(revenue) total_sales FROM "tmdb-movies" GROUP BY id ORDER BY total_sales DESC LIMIT 10 ' --snifflimit 0 tmdb-movies.csv | csvlook
-
-
-# Question 6:   #a,The director who owns the most movies
-awk -F ',' '{ directors[$9]++; split($7, actors, ","); for (i in actors) { if (actors[i] != "") actors_count[actors[i]]++; } } END {for (director in directors) print directors[director], director | "sort -rn"}' tmdb-movies.csv | head -n 1
- 		#b,the actor who plays the most movies
-awk -F ',' '{ split($7, actors, ","); for (i in actors) { if (actors[i] != "") actors_count[actors[i]]++; } } END {for (actor in actors_count) print actors_count[actor], actor | "sort -rn"}' tmdb-movies.csv | head -n 1=> giai tich
-
-# Question 7: Statistics of movies by genre
-awk -F ',' 'NR>1 {split($14, genres_arr, "|"); for (i in genres_arr) genre_count[genres_arr[i]]++} END {for (g in genre_count) print g, genre_count[g]}' tmdb-movies.csv
-
-
-
-
-
-
-
-
-
-
-
-
+cd ~/Desktop/Project3,,,,
+,,,,
+"wget ""https://raw.githubusercontent.com/yinghaoz1/tmdb-movie-dataset-analysis/master/tmdb-movies.csv""",,,,
+,,,,
+csvgrep -n tmdb-movies.csv,,,,
+,,,,
+,,,,
+# Question 1: Descending order data by release_date ,,,,
+,,,,
+csvsort -c release_date -r tmdb-movies.csv | csvformat -T > sorted_movies.csv,,,,
+,,,,
+# Question 2: Filter the films having vote_average > 7.5 ,,,,
+"csvsql --query 'SELECT * FROM ""tmdb-movies"" where vote_average > 7.5' --snifflimit 0 tmdb-movies.csv | csvformat -T > vote_average > 7.5.csv",,,,
+,,,,
+# Question 3: Find the film max sales and min sales,,,,
+csvstat --min -c revenue tmdb-movies.csv,,,,
+,,,,
+csvstat --max -c revenue tmdb-movies.csv ,,,,
+,,,,
+# Question 4: Total sales,,,,
+awk -F',"' 'BEGIN {total = 0} NR>1 {total+=$5} END {print ""Total revenue: ""total}' tmdb-movies.csv",,,
+,,,,
+,,,,
+# Question 5: Top 10 have the highest sales,,,,
+,,,,
+csvsql --query 'SELECT id,"SUM(revenue) total_sales FROM ""tmdb-movies"" GROUP BY id ORDER BY total_sales DESC LIMIT 10 ' --snifflimit 0 tmdb-movies.csv | csvlook",,,
+,,,,
+,,,,
+# Question 6:   #a,The director who owns the most movies,,,
+awk -F ',' '{ directors[$9]++; split($7, actors," ""","); for (i in actors) { if (actors[i] != "") actors_count[actors[i]]++; } } END {for (director in directors) print directors[director], director | sort -rn""}' tmdb-movies.csv | head -n 1"
+" 		#b",Actor with the most movies,,,
+awk -F ',' '{ split($7, actors," ""","); for (i in actors) { if (actors[i] != "") actors_count[actors[i]]++; } } END {for (actor in actors_count) print actors_count[actor], actor | sort -rn""}' tmdb-movies.csv | head -n 1"
+,,,,
+# Question 7: Statistics of movies by genre,,,,
+awk -F ',' 'NR>1 {split($14, genres_arr," ""|""); for (i in genres_arr) genre_count[genres_arr[i]]++} END {for (g in genre_count) print g", genre_count[g]}' tmdb-movies.csv
